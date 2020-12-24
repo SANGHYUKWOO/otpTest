@@ -77,8 +77,8 @@ public class GoogleOtpTestController {
 		if(matchID(id, pw))
 		{
 			//String secretKeyStr = "GXRZIYSI";// 매번 생성하지 않고 한번 생성된 키를 사용.
-			String secretKeyStr   = "WSHRFVTG";// 매번 생성하지 않고 한번 생성된 키를 사용.
-			//String secretKeyStr = generateSecretKey();// 매번 생성
+			//String secretKeyStr   = "WSHRFVTG";// 매번 생성하지 않고 한번 생성된 키를 사용.
+			String secretKeyStr = generateSecretKey();// 매번 생성
 			//String url = getQRBarcodeURL("kw191211", "testEmail.com", secretKeyStr); // 생성된 바코드 주소!
 			String url = getQRBarcodeURL(user, host, secretKeyStr); // 생성된 바코드 주소!
 	        System.out.println("URL : " + url);
@@ -158,8 +158,13 @@ public class GoogleOtpTestController {
 	}
 	
 	public static String getQRBarcodeURL(String user, String host, String secret) {
-        String format = "http://chart.apis.google.com/chart?cht=qr&amp;chs=300x300&amp;chl=otpauth://totp/%s@%s%%3Fsecret%%3D%s&amp;chld=H|0";
-         
+        //String format = "http://chart.apis.google.com/chart?cht=qr&amp;chs=300x300&amp;chl=otpauth://totp/%s@%s%%3Fsecret%%3D%s&amp;chld=H|0";
+		String format = "https://chart.googleapis.com/chart?cht=qr&amp;chs=300x300&amp;chl=otpauth://totp/%s@%s%%3Fsecret%%3D%s&amp;chld=H|0";
+		//%3D = =
+		//%3F = ?
+		//스트링 포멧  http://chart.googleapis.com/chart?cht=qr&amp;chs=300x300&amp;chl=otpauth://totp/kw191211@testEmail.com%3Fsecret%3DWSHRFVTG&amp;chld=H|0
+		//스트링 포멧  http://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=otpauth://totp/kw191211@testEmail.com?secret=WSHRFVTG&chld=H|0
+        System.out.println(" 스트링 포멧  "+String.format(format, user, host, secret));
         return String.format(format, user, host, secret);
     }
 	
