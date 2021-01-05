@@ -1,4 +1,4 @@
-package com.mytest.otp;
+package com.myapp.otp;
 
 import java.text.DateFormat;
 import java.util.Date;
